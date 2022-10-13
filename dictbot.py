@@ -38,17 +38,15 @@ def parse_defs(defs_str):
     defs = []
     cur_def = []
     for field in fields:
-        if field:
-            if field == '(P)':
-                continue
-            else:
-                if re.search('^(\([^\) ]+\) )*\([0-9]+\) ', field):
-                    if cur_def:
-                        defs.append('; '.join(cur_def))
-                    field = re.sub('\([0-9]+\) ', '', field)
-                    cur_def = [field]
-                else:
-                    cur_def.append(field)
+        if field == '' or field == '(P)':
+            continue
+        elif re.search('^(\([^\) ]+\) )*\([0-9]+\) ', field):
+            if cur_def:
+                defs.append('; '.join(cur_def))
+            field = re.sub('\([0-9]+\) ', '', field)
+            cur_def = [field]
+        else:
+            cur_def.append(field)
     if cur_def:
         defs.append('; '.join(cur_def))
     return defs
