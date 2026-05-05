@@ -28,10 +28,10 @@ def parse_defs(defs_str):
     for field in fields:
         if field == '' or field == '(P)':
             continue
-        elif re.search('^(\([^\) ]+\) )*\([0-9]+\) ', field):
+        elif re.search(r'^(\([^\) ]+\) )*\([0-9]+\) ', field):
             if cur_def:
                 defs.append('; '.join(cur_def))
-            field = re.sub('\([0-9]+\) ', '', field)
+            field = re.sub(r'\([0-9]+\) ', '', field)
             cur_def = [field]
         else:
             cur_def.append(field)
